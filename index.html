@@ -6,7 +6,7 @@
     <body style="    overflow: hidden; background: url(https://github.com/y507873/bkejdj/raw/master/bellumbg.png); ">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <button style="width: 100px;height: 100px;font-size: 20px;margin-top: 150px;" onclick="beginTimer()">RESET TIME</button>
-    
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Starting timer in...<span id="countd">5</span></button>
     <div id="controlPanel">
     
         <div id="playerStats" class="controlPanelElement">
@@ -252,9 +252,11 @@
 
 
         function addMP() {
-            var temp_mp = parseInt($('#mp').text());
-            temp_mp = temp_mp + 1;
-            $('#mp').text(temp_mp);
+            if($('#timer').text() != '120:1') {
+                var temp_mp = parseInt($('#mp').text());
+                temp_mp = temp_mp + 1;
+                $('#mp').text(temp_mp);
+            }
         }
 
         function addMPMuch(current_mps) {
@@ -274,8 +276,20 @@
             120 + ":" + 01;
 
         function beginTimer() {
-            document.getElementById('timer').innerHTML =
-                120 + ":" + 01;
+            var counter = 5;
+            var interval_count = setInterval(function() {
+                counter--;
+                $('#countd').text(counter);
+                if (counter == 0) { console.log(counter);
+                    clearInterval(interval_count);
+                    resetGame();
+                }
+            }, 1000);
+
+        }
+        
+        function resetGame() {
+            document.getElementById('timer').innerHTML = 120 + ":" + 01;
             clearTimeout(start_timer);
             startTimer();
             startingCost = [15, 100, 500, 3000, 10000];
@@ -297,8 +311,7 @@
             }
             //if(m<0){alert('timer completed')}
 
-            document.getElementById('timer').innerHTML =
-                m + ":" + s;
+            document.getElementById('timer').innerHTML = m + ":" + s;
             start_timer = setTimeout(startTimer, 1000);
         }
 
@@ -325,7 +338,6 @@
         }
 
         function system() {}
-        startTimer();
     </script>
 <style type="text/css">
 #mapContainer{
