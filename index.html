@@ -5,7 +5,7 @@
 </head>
     <body style="    overflow: hidden; background: url(https://github.com/y507873/bkejdj/raw/master/bellumbg.png); ">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <button style="width: 100px;height: 100px;font-size: 20px;margin-top: 150px;" onclick="beginTimer()">START TIME</button>
+    <button style="width: 100px;height: 100px;font-size: 20px;margin-top: 150px;" onclick="beginTimer()">RESET TIME</button>
     
     <div id="controlPanel">
     
@@ -234,9 +234,21 @@
 
         var updateMP = setInterval(function() {
             document.getElementById("mps").innerHTML = mps();
+            check600();
         }, 50);
 
-
+        var is600 = false;
+        function check600() {
+            if(troops[0] == 10 && troops[1] == 10 && troops[2] == 10 && troops[3] == 10 && troops[4] ==  10 && !is600) {
+                clearTimeout(start_timer);
+                var presentTime = document.getElementById('timer').innerHTML;
+                var timeArray = presentTime.split(/[:]+/);
+                var m = timeArray[0];
+                var s = checkSecond((timeArray[1] - 1));
+                $('#timer').append('<h2>your time was '+ m +': '+ s +'</h2>');
+                is600 = true;
+            }
+        }
 
 
         function addMP() {
@@ -313,6 +325,7 @@
         }
 
         function system() {}
+        startTimer();
     </script>
 <style type="text/css">
 #mapContainer{
