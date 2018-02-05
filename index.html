@@ -239,7 +239,7 @@
 
         var is600 = false;
         function check600() {
-            if(troops[0] == 10 && troops[1] == 10 && troops[2] == 10 && troops[3] == 10 && troops[4] ==  10 && !is600) {
+            if(troops[0] >= 10 && troops[1] >= 10 && troops[2] >= 10 && troops[3] >= 10 && troops[4] >=  10 && !is600) {
                 clearTimeout(start_timer);
                 var presentTime = document.getElementById('timer').innerHTML;
                 var timeArray = presentTime.split(/[:]+/);
