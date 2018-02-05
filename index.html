@@ -1,0 +1,757 @@
+<head>
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css">
+</head>
+    <body style="    overflow: hidden; background: url(bellumbg.png); ">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <button style="width: 100px;height: 100px;font-size: 20px;margin-top: 150px;" onclick="beginTimer()">START TIME</button>
+    
+    <div id="controlPanel">
+    
+        <div id="playerStats" class="controlPanelElement">
+            <div class="baseBox">
+                <font size="4">Military power: <spam id="mp">0</spam></font><br>
+                <font size="3">Military power per 1 second: <spam id="mps">0</spam></font>
+                <div style="position: relative;width: 100%;height: 30px;background-color: grey;border-radius: 4px;">
+                    <div id="attackCooldown1" style="position: absolute; width: 100%; height: 100%; background-color: forestgreen; border-radius: 4px;"></div>
+                    <div style="position: absolute;width: 100%;height: 100%;font-weight:normal;font-size:20px;text-shadow: 0px 0px 0px rgba(255,255,255,0.25);"><center><font color="white">Attack Cooldown</font><center></center></center></div>
+                </div>
+            </div>           
+        </div>
+        
+        <div id="panels" class="controlPanelElement">
+        
+          <div id="panelMenu">
+              <div class="btn-group btn-block"> 
+                  <button class="btn btn-secondary col-md-3" onclick="controlPanelChange(&quot;#base&quot;)" )="">
+                      <i class="fa fa-plus" aria-hidden="true"></i> Upgrades
+                  </button>
+                  <button class="btn btn-secondary col-md-3" onclick="controlPanelChange(&quot;#ally&quot;)" )="">
+                      <i class="fa fa-handshake-o" aria-hidden="true"></i> Alliances
+                  </button>
+                  <button class="btn btn-secondary col-md-3" onclick="controlPanelChange(&quot;#who&quot;)" )="">
+                      <i class="fa fa-user" aria-hidden="true"></i> Players
+                  </button>
+                  <button class="btn btn-secondary col-md-3" onclick="controlPanelChange(&quot;#helpPanel&quot;)" )="">
+                      <i class="fa fa-question" aria-hidden="true"></i> Help
+                  </button>                  
+              </div>                      
+          </div>
+          
+          <div id="helpPanel" class="panel" style="display:none">
+       
+            
+                   
+            </div>        
+        
+            <div id="base" class="panel" style="">            
+             	<div class="baseBox">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="http://bellum.io/img/base/1.png" style="float:left;height:70px">
+            		    </div>
+                    <div class="col-md-5">
+                  			You have <span id="soOwn">10</span>/<span id="soMax">10</span> Soldier<br><br>
+                  			1Mp per second <br> 
+                  			cost: <span id="soCost">60</span>Mp
+                    </div>
+                  <div class="col-md-4">
+            	 		    <button class="btn btn-lg btn-success btn-block" type="button" onclick="addTroop(0)">+1 Soldier</button>		
+                  </div>
+            		</div>
+            	</div>
+            
+              <div class="baseBox">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="http://bellum.io/img/base/2.png" style="float:left;height:70px">
+            		    </div>
+                    <div class="col-md-5">
+                  			You have <span id="sqOwn">10</span>/<span id="sqMax">10</span> Squad<br>
+                  			5Mp per second <br> 
+                  			cost: <span id="sqCost">404</span>Mp
+                    </div>
+                  <div class="col-md-4">
+            	 		    <button class="btn btn-lg btn-success btn-block" type="button" onclick="addTroop(1)">+1 Squad</button>		
+                  </div>
+            		</div>
+            	</div>
+              
+              <div class="baseBox">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="http://bellum.io/img/base/3.png" style="float:left;height:70px">
+            		    </div>
+                    <div class="col-md-5">
+                  			You have <span id="taOwn">10</span>/<span id="taMax">10</span> Tank<br> 
+                  			40Mp per second <br> 
+                  			cost: <span id="taCost">2022</span>Mp
+                    </div>
+                  <div class="col-md-4">
+            	 		    <button class="btn btn-lg btn-success btn-block" type="button" onclick="addTroop(2)">+1 Tank</button>		
+                  </div>
+            		</div>
+            	</div>
+            
+              <div class="baseBox">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="http://bellum.io/img/base/4.png" style="float:left;height:70px">
+            		    </div>
+                    <div class="col-md-5">
+                  			You have <span id="baOwn">10</span>/<span id="baMax">10</span> Base<br>
+                  			100Mp per second <br> 
+                  			cost: <span id="baCost">12136</span>Mp
+                    </div>
+                  <div class="col-md-4">
+            	 		    <button class="btn btn-lg btn-success btn-block" type="button" onclick="addTroop(3)">+1 Base</button>		
+                  </div>
+            		</div>
+            	</div>
+            
+              <div class="baseBox">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="http://bellum.io/img/base/5.png" style="float:left;height:70px">
+            		    </div>
+                    <div class="col-md-5">
+                  			You have <span id="aiOwn">10</span>/<span id="aiMax">10</span> Airfield <br> <br>
+                  			400Mp per second <br>
+                  			cost: <span id="aiCost">40455</span>Mp
+                    </div>
+                  <div class="col-md-4">
+            	 		    <button class="btn btn-lg btn-success btn-block" type="button" onclick="addTroop(4)">+1 Airfield</button>		
+                  </div>
+            		</div>
+            	</div>
+             	<div class="baseBox">
+                  <button class="btn btn-lg btn-success btn-block" type="button" onclick="addMP();this.blur();">+<span id="clickMp">1</span> military power</button>
+              </div>      
+    </div>
+            
+        </div>        
+    </div>
+    
+    
+    
+    <div id="playerStats"></div>
+    <h1 id="timer">00:00</h1><br><br><br><br> 
+
+
+
+
+
+
+    <script>
+        var startingCost = [15, 100, 500, 3000, 10000];
+        var troopBonus = [1, 5, 40, 100, 400];
+        var troops = [0, 0, 0, 0, 0];
+        refresh();
+
+        function mp() {
+            return parseInt($('#mp').text());
+        }
+
+        function addTroop(lvl) {
+            var current_mp = mp();
+            var cost = parseInt(startingCost[lvl] * Math.pow(1.15, troops[lvl]));
+            if (current_mp >= cost) {
+                troops[lvl] = troops[lvl] + 1;
+                minusMp(cost);
+                if (lvl == 0) {
+                    $('#soOwn').text(troops[lvl]);
+                    var newCost = parseInt(startingCost[lvl] * Math.pow(1.15, troops[lvl]));
+                    $('#soCost').text(newCost);
+                }
+                if (lvl == 1) {
+                    $('#sqOwn').text(troops[lvl]);
+                    var newCost = parseInt(startingCost[lvl] * Math.pow(1.15, troops[lvl]));
+                    $('#sqCost').text(newCost);
+                }
+                if (lvl == 2) {
+                    $('#taOwn').text(troops[lvl]);
+                    var newCost = parseInt(startingCost[lvl] * Math.pow(1.15, troops[lvl]));
+                    $('#taCost').text(newCost);
+                }
+                if (lvl == 3) {
+                    $('#baOwn').text(troops[lvl]);
+                    var newCost = parseInt(startingCost[lvl] * Math.pow(1.15, troops[lvl]));
+                    $('#baCost').text(newCost);
+                }
+                if (lvl == 4) {
+                    $('#aiOwn').text(troops[lvl]);
+                    var newCost = parseInt(startingCost[lvl] * Math.pow(1.15, troops[lvl]));
+                    $('#aiCost').text(newCost);
+                }
+            }
+        }
+
+        function minusMp(cost) {
+            var current_mp = mp();
+            var new_mp = current_mp - cost;
+            setMp(new_mp);
+        }
+
+        function setMp(amount) {
+            $('#mp').text(amount);
+        }
+
+
+
+
+        function refresh() {
+            document.getElementById("soOwn").innerHTML = troops[0];
+            document.getElementById("sqOwn").innerHTML = troops[1];
+            document.getElementById("taOwn").innerHTML = troops[2];
+            document.getElementById("baOwn").innerHTML = troops[3];
+            document.getElementById("aiOwn").innerHTML = troops[4];
+            document.getElementById("soCost").innerHTML = cost(0);
+            document.getElementById("sqCost").innerHTML = cost(1);
+            document.getElementById("taCost").innerHTML = cost(2);
+            document.getElementById("baCost").innerHTML = cost(3);
+            document.getElementById("aiCost").innerHTML = cost(4);
+
+            document.getElementById("mps").innerHTML = mps();
+        }
+
+        function cost(lvl) {
+            if (troops[lvl] > 0)
+                return parseInt(startingCost[lvl] * Math.pow(1.15, troops[lvl]))
+            else
+                return startingCost[lvl];
+        }
+
+        function mps() {
+            return ((troops[0] * troopBonus[0]) +
+                (troops[1] * troopBonus[1]) +
+                (troops[2] * troopBonus[2]) +
+                (troops[3] * troopBonus[3]) +
+                (troops[4] * troopBonus[4]));
+        }
+
+
+
+        var updateMP = setInterval(function() {
+            document.getElementById("mps").innerHTML = mps();
+        }, 50);
+
+
+
+
+        function addMP() {
+            var temp_mp = parseInt($('#mp').text());
+            temp_mp = temp_mp + 1;
+            $('#mp').text(temp_mp);
+        }
+
+        function addMPMuch(current_mps) {
+            var current_mp = mp();
+            var new_mp = current_mp + current_mps;
+            $('#mp').text(new_mp);
+        }
+
+        window.setInterval(function() {
+            var current_mps = mps();
+            addMPMuch(current_mps);
+        }, 1000);
+
+
+
+        document.getElementById('timer').innerHTML =
+            120 + ":" + 01;
+
+        function beginTimer() {
+            document.getElementById('timer').innerHTML =
+                120 + ":" + 01;
+            clearTimeout(start_timer);
+            startTimer();
+            startingCost = [15, 100, 500, 3000, 10000];
+            troopBonus = [1, 5, 40, 100, 400];
+            troops = [0, 0, 0, 0, 0];
+            refresh();
+            setMp(0);
+        }
+
+        var start_timer;
+
+        function startTimer() {
+            var presentTime = document.getElementById('timer').innerHTML;
+            var timeArray = presentTime.split(/[:]+/);
+            var m = timeArray[0];
+            var s = checkSecond((timeArray[1] - 1));
+            if (s == 59) {
+                m = m - 1
+            }
+            //if(m<0){alert('timer completed')}
+
+            document.getElementById('timer').innerHTML =
+                m + ":" + s;
+            start_timer = setTimeout(startTimer, 1000);
+        }
+
+        function checkSecond(sec) {
+            if (sec < 10 && sec >= 0) {
+                sec = "0" + sec
+            }; // add zero in front of numbers < 10
+            if (sec < 0) {
+                sec = "59"
+            };
+            return sec;
+        }
+
+
+        document.onkeydown = keydown;
+
+        function keydown(event) {
+            if (event.keyCode == 49) addTroop(0);
+            if (event.keyCode == 50) addTroop(1);
+            if (event.keyCode == 51) addTroop(2);
+            if (event.keyCode == 52) addTroop(3);
+            if (event.keyCode == 53) addTroop(4);
+
+        }
+
+        function system() {}
+    </script>
+<style type="text/css">
+#mapContainer{
+  position: fixed;
+  top:0px;
+  left:0px;
+  
+	width: 100%;
+	height: 100%; 
+  
+  overflow:hidden; 
+}
+#see{
+  position absolute;
+	width: 5000px;
+	height: 5000px; 
+	background-image:url("/img/map/PNG/rpgTile029.png");
+  background-repeat: repeat; 
+  background-position: center; 
+}
+#mapTable{ 
+  position: absolute;
+	width: 4000px;
+	height: 4000px;
+  border-collapse: collapse;
+  
+  background-image: url("/img/map/PNG/rpgTile013.png"),
+                    url("/img/map/PNG/rpgTile014.png"),
+                    url("/img/map/PNG/rpgTile032.png"),
+                    url("/img/map/PNG/rpgTile031.png"),                        
+                    url("/img/map/PNG/rpgTile045.png"),
+                    url("/img/map/PNG/rpgTile028.png"),
+                    url("/img/map/PNG/rpgTile011.png"),
+                    url("/img/map/PNG/rpgTile030.png"),
+                    url("/img/map/PNG/rpgTile040.png"); 
+    
+  background-position: left top,right top,right bottom,left bottom,top center,right center,bottom center,left center,center; 
+                     
+  background-repeat: no-repeat,no-repeat,no-repeat,no-repeat,repeat-x,repeat-y,repeat-x,repeat-y,repeat;
+ 
+      
+  Top:500px;
+  left:500px;
+}
+#mapTable img{
+	max-width: 100%;
+	max-height: 100%;
+}
+#mapTable td{
+  border: 1px solid black;
+  padding: 0px;
+}   
+#mapTable tr:first-child td {
+  border-top: 0;
+}
+#mapTable tr:last-child td {
+  border-bottom: 0;
+}
+#mapTable tr td:first-child,
+#mapTable tr th:first-child {
+  border-left: 0;
+}
+#mapTable tr td:last-child,
+#mapTable tr th:last-child {
+  border-right: 0;
+}
+
+.mapBox1{
+	background-color: rgba(255,255,255,0);
+}
+.mapBox3{
+	background-color: rgba(255,255,255,0);
+}    
+.mapBox4{
+	background-color: rgba(255,255,255,0);
+}
+.mouseOver:hover{
+  background-color: rgba(255,255,255,0.4);
+  filter: brightness(1.3);
+}
+
+#controlPanel{
+  position:fixed;
+  width:450px;
+  right:0px;
+    top: 0;
+  margin:0px;
+  padding:2px;
+}
+.ControlPanelElement{
+  margin-top:10px;
+  padding:5px;
+  margin-right:-10px;
+  background: rgba(60,60,60,0.4);
+  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.15);
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;   
+}
+#playerStats {
+  pointer-events: visible;
+  
+  margin:2px;
+  margin-right:-10px;
+  margin-top:-10px;
+  padding:5px;
+  
+  color: black;
+  font-weight: bold;
+  font-size:1.2em; 
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.25);  
+  
+  z-index:2;
+
+}
+.panel{
+  padding:5px;
+}
+#base {
+  pointer-events: visible;
+
+  margin:-5px;
+  margin-top:2px;
+  padding:5px;
+  padding-right:10px;
+  
+  z-index:3;
+} 
+#whoList {
+   max-height:50vh;
+   overflow:auto;
+}
+#whoList::-webkit-scrollbar-track{
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.2);
+}
+#whoList::-webkit-scrollbar{
+	width: 8px;
+}
+#whoList::-webkit-scrollbar-thumb{
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.4);
+}
+
+
+.baseBox{
+	padding: 2px;
+  margin: 2px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;      
+	background-color: rgba(255,255,255,0.8);	
+}
+
+#cellInfo{
+  position:fixed;
+  width:400px;
+  
+  background: rgba(200,200,200,0.8);
+  border: 2px dashed transparent;
+  box-shadow: 2px 2px 4px 4px rgba(0,0,0,0.25);
+  border-radius: 7px;
+  -webkit-border-radius: 4px;  
+  z-index:2;
+  
+  pointer-events: visible;
+  display:none;
+}
+#timer{
+    padding: 5px;
+    font-size: 1.4em;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    background-color: rgba(255,255,255,0.8);
+    top: 0;
+    position: fixed;
+    margin-top: 0px;
+    width: 193px;
+    font-weight: 900;
+}
+
+.control{
+  pointer-events: visible;  
+  position:fixed;
+  float: left; 
+  
+  margin:2px;
+  margin-left:-13px;
+  margin-top:-13px;
+  padding:5px;
+  
+  z-index:2;
+  
+  color: black;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.25);
+
+  background: rgba(60,60,60,0.4);
+  border: 2px dashed transparent;
+  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.15);
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;  
+}
+#shortcutButton{ 
+  padding:5px;
+  font-size:1.4em; 
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  background-color: rgba(255,255,255,0.8);  
+}
+#shortcutButton:hover{ 
+  background-color: rgba(255,255,255,0.4);  
+}
+#gameLeaderBoard{
+  margin-top:2px;
+  padding:10px;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  background-color: rgba(255,255,255,0.8);    
+}
+
+.chatBox{
+margin-left:50px;
+}
+#chat{
+  position: fixed;
+  width:40vw;
+  bottom:0px;
+  left:0px;
+  z-index:2;
+  pointer-events: visible;  
+}
+#chatButtons{
+  width:auto;
+  padding:3px;
+  margin-bottom:-2px;
+  background: rgba(60,60,60,0.4);
+  border: 2px dashed transparent;
+  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.15);
+  border-top-right-radius: 7px;
+  -webkit-border-top-right-radius: 7px;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;   
+}
+.msg{
+  margin-left:10px;
+  z-index:2; 
+}
+#chatBox{
+  margin:2px;
+  margin-left:-10px;
+  margin-bottom:-3px;
+  
+  z-index:2;
+  
+  color: black;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.25);
+
+  background: rgba(60,60,60,0.4);
+  border: 2px dashed transparent;
+  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.15);
+  border-top-right-radius: 7px;
+  -webkit-border-top-right-radius: 7px;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;    
+}
+.messages{
+	padding: 1px;
+  margin:5px;
+  margin-left: 3px;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -webkit-border-top-left-radius: 4px;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;      
+	background-color: rgba(255,255,255,0.8);	
+
+    height:30vh;
+    word-wrap: break-word;
+    overflow-y: auto;
+}
+.messages::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.2);
+}
+
+.messages::-webkit-scrollbar
+{
+	width: 8px;
+}
+
+.messages::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.4);
+}
+#chatInputContainer{
+  padding:3px;
+  margin-right:1px;
+  margin-top:-1px;
+  background: rgba(60,60,60,0.4);
+  border: 2px dashed transparent;
+  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.15);
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;   
+}
+
+#notify{
+  position: fixed;
+  width:40vw;
+  bottom: calc(100vh - 80px);
+  right:30vw;
+  left:30vw;
+  padding:5px;
+  z-index:2;
+  pointer-events: visible;
+}
+#hack{
+  color:white;
+  background: #c10000;
+  
+  width:100%;
+  height:100%;
+}
+
+.window{
+  position:fixed;
+  top:10%;
+  left:10%;
+  width:80%;
+  height:80%;
+  background-color: rgba(255,255,255,0.8);
+  border: 2px solid black;
+  z-index:100;
+  pointer-events: visible;
+}
+.helpKey{
+    background:rgba(0,0,0,0.4);
+    padding:2px;
+    margin:2px;
+}
+
+.popover-content {
+    background:rgba(0,0,0,0);
+    width:250px;
+    height:auto;
+    padding: 0px;
+    margin: 0px;
+    border:0px;
+}
+.popover {
+    background:rgba(0,0,0,0);
+    width:200px;
+    height:auto;
+    padding: 0px;
+    margin: 0px;
+    border:0px;
+}
+
+#skinList::-webkit-scrollbar{
+	width: 8px;
+}
+#skinList::-webkit-scrollbar-track{
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.2);
+}
+#skinList::-webkit-scrollbar-thumb{
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.4);
+}
+
+#backList::-webkit-scrollbar{
+	width: 8px;
+}
+#backList::-webkit-scrollbar-track{
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.2);
+}
+#backList::-webkit-scrollbar-thumb{
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0.4);
+}
+
+
+.legendarySkin:hover {
+  -webkit-animation: orange 1.5s ease-in-out infinite alternate;
+  -moz-animation: orange 1.5s ease-in-out infinite alternate;
+  animation: orange 1.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes orange {
+  from {box-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 8px #FF9900, 0 0 14px #FF9900, 0 0 16px #FF9900, 0 0 20px #FF9900, 0 0 30px #FF9900;}
+  to {box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #FF9900, 0 0 7px #FF9900, 0 0 8px #FF9900, 0 0 10px #FF9900, 0 0 15px #FF9900;}
+}
+@-moz-keyframes orange {
+  from {box-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 8px #FF9900, 0 0 14px #FF9900, 0 0 16px #FF9900, 0 0 20px #FF9900, 0 0 30px #FF9900;}
+  to {box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #FF9900, 0 0 7px #FF9900, 0 0 8px #FF9900, 0 0 10px #FF9900, 0 0 15px #FF9900;}
+}
+@keyframes orange {
+  from {box-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 8px #FF9900, 0 0 14px #FF9900, 0 0 16px #FF9900, 0 0 20px #FF9900, 0 0 30px #FF9900;}
+  to {box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #FF9900, 0 0 7px #FF9900, 0 0 8px #FF9900, 0 0 10px #FF9900, 0 0 15px #FF9900;}
+}
+
+.epicSkin:hover {
+  -webkit-animation: purple 1.5s ease-in-out infinite alternate;
+  -moz-animation: purple 1.5s ease-in-out infinite alternate;
+  animation: purple 1.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes purple {
+  from {box-shadow: 0 0 0px #fff, 0 0 1px #fff, 0 0 1px #fff, 0 0 2px #ff00de, 0 0 3px #ff00de, 0 0 4px #ff00de, 0 0 5px #ff00de, 0 0 7px #ff00de;}
+  to {box-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 0px #fff, 0 0 1px #ff00de, 0 0 1px #ff00de, 0 0 2px #ff00de, 0 0 2px #ff00de, 0 0 3px #ff00de;}
+}
+@-moz-keyframes purple {
+  from {box-shadow: 0 0 0px #fff, 0 0 1px #fff, 0 0 1px #fff, 0 0 2px #ff00de, 0 0 3px #ff00de, 0 0 4px #ff00de, 0 0 5px #ff00de, 0 0 7px #ff00de;}
+  to {box-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 0px #fff, 0 0 1px #ff00de, 0 0 1px #ff00de, 0 0 2px #ff00de, 0 0 2px #ff00de, 0 0 3px #ff00de;}
+}
+@keyframes purple {
+  from {box-shadow: 0 0 0px #fff, 0 0 1px #fff, 0 0 1px #fff, 0 0 2px #ff00de, 0 0 3px #ff00de, 0 0 4px #ff00de, 0 0 5px #ff00de, 0 0 7px #ff00de;}
+  to {box-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 0px #fff, 0 0 1px #ff00de, 0 0 1px #ff00de, 0 0 2px #ff00de, 0 0 2px #ff00de, 0 0 3px #ff00de;}
+}
+</style>
+</body>
